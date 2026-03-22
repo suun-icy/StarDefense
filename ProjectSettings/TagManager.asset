@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - EnergyNode
+  - Core
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Enemy
+  - Ground
+  - Tower
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 1670199201
+    locked: 0
+  - name: Enemy
+    uniqueID: 1775852625
+    locked: 0
+  - name: Tower
+    uniqueID: 4157367217
+    locked: 0
+  - name: AirUnit
+    uniqueID: 2145641251
+    locked: 0
+  - name: UI
+    uniqueID: 2055737559
+    locked: 0
