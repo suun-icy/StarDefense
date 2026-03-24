@@ -9,9 +9,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.66F56946" = "Standard"
+	"last_search.66F56946" = "Registry"
 	"OpenInspectorPreview.66F56946" = "0"
-	"currentGroup.66F56946" = "settings"
+	"currentGroup.66F56946" = "all"
 }
 providers = {
 	asset = {
@@ -63,6 +63,10 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"Registr"
+	"Unity Registr"
+	"Packages Manager"
+	"Navigation"
 	"Standard"
 	"BuildPreview"
 	"BuildPreviewBuildPreview"

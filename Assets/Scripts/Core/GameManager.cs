@@ -2,165 +2,178 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 游戏主控制器
+/// 游戏主控制器（优化版）
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    
-    [Header("UI")]
-    public GameObject startPanel;
-    public GameObject gameOverPanel;
-    
-    [Header("系统")]
-    public WaveSpawner waveSpawner;
-    
-    [Header("游戏设置")]
-    public int maxWaves = 10;
-    public float playerHealth = 20;
-    
-    public enum GameState
-    {
-        Preparing,  // 准备阶段
-        Playing,    // 游戏中
-        GameOver    // 结束
-    }
+	public static GameManager Instance;
 
-    public GameState State { get; private set; }
-    public int currentWave = 0;
-    public float CurrentPlayerHealth => playerHealth;
+	[Header("UI")]
+	public GameObject startPanel;
+	public GameObject gameOverPanel;
+	public GameObject victoryPanel;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+	[Header("系统")]
+	public WaveSpawner waveSpawner;
 
-    void Start()
-    {
-        State = GameState.Preparing;
-        Time.timeScale = 1f;
-        
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false);
-        }
-    }
+	[Header("游戏设置")]
+	public int maxWaves = 10;
+	public float playerHealth = 20;
 
-    void Update()
-    {
-        // 按 R 键重新开始
-        if (State == GameState.GameOver && Input.GetKeyDown(KeyCode.R))
-        {
-            RestartGame();
-        }
-    }
+	public enum GameState
+	{
+		Preparing,
+		Playing,
+		Paused,
+		GameOver,
+		Victory
+	}
 
-    /// <summary>
-    /// 启动游戏
-    /// </summary>
-    public void StartGame()
-    {
-        Debug.Log("启动游戏");
-        State = GameState.Playing;
-        currentWave = 0;
-        playerHealth = 20;
+	public GameState State { get; private set; }
+	public int currentWave = 0;
 
-        // 隐藏开始 UI
-        if (startPanel != null)
-        {
-            startPanel.SetActive(false);
-        }
+	public bool IsPaused => State == GameState.Paused;
+	public float CurrentPlayerHealth => playerHealth;
 
-        // 开始刷怪
-        if (waveSpawner != null)
-        {
-            waveSpawner.StartWave();
-        }
-    }
+	private void Awake()
+	{
+		Instance = this;
+	}
 
-    /// <summary>
-    /// 敌人到达终点
-    /// </summary>
-    public void OnEnemyReachEnd(float damage = 1f)
-    {
-        playerHealth -= damage;
-        Debug.Log($"玩家剩余生命：{playerHealth}");
-        
-        if (playerHealth <= 0)
-        {
-            GameOver();
-        }
-    }
+	void Start()
+	{
+		State = GameState.Preparing;
+		Time.timeScale = 1f;
 
-    /// <summary>
-    /// 波次完成
-    /// </summary>
-    public void OnWaveComplete()
-    {
-        currentWave++;
-        Debug.Log($"波次 {currentWave} 完成");
-        
-        if (currentWave >= maxWaves)
-        {
-            Victory();
-        }
-    }
+		if (gameOverPanel) gameOverPanel.SetActive(false);
+		if (victoryPanel) victoryPanel.SetActive(false);
+	}
 
-    /// <summary>
-    /// 游戏结束
-    /// </summary>
-    public void GameOver()
-    {
-        State = GameState.GameOver;
-        Debug.Log("游戏结束！");
-        
-        if (waveSpawner != null)
-        {
-            waveSpawner.StopWave();
-        }
-        
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
-        
-        Time.timeScale = 0f;
-    }
+	void Update()
+	{
+		// 暂停
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			TogglePause();
+		}
 
-    /// <summary>
-    /// 胜利
-    /// </summary>
-    public void Victory()
-    {
-        State = GameState.GameOver;
-        Debug.Log("恭喜胜利！");
-        
-        if (waveSpawner != null)
-        {
-            waveSpawner.StopWave();
-        }
-        
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
-        
-        Time.timeScale = 0f;
-    }
+		// 重开
+		if ((State == GameState.GameOver || State == GameState.Victory)
+			&& Input.GetKeyDown(KeyCode.R))
+		{
+			RestartGame();
+		}
+	}
 
-    /// <summary>
-    /// 重新开始
-    /// </summary>
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+	#region 游戏流程
+
+	public void StartGame()
+	{
+		Debug.Log("开始游戏");
+
+		State = GameState.Playing;
+		currentWave = 0;
+		playerHealth = 20;
+
+		if (startPanel) startPanel.SetActive(false);
+
+		StartNextWave();
+	}
+
+	public void StartNextWave()
+	{
+		if (waveSpawner != null)
+		{
+			waveSpawner.StartWave();
+		}
+	}
+
+	public void OnWaveComplete()
+	{
+		currentWave++;
+
+		Debug.Log($"波次 {currentWave} 完成");
+
+		if (currentWave >= maxWaves)
+		{
+			Victory();
+		}
+		else
+		{
+			// 可以在这里进入“建造阶段”
+			State = GameState.Preparing;
+
+			Invoke(nameof(StartNextWave), 5f); // 5秒后下一波
+		}
+	}
+
+	#endregion
+
+	#region 玩家状态
+
+	public void OnEnemyReachEnd(float damage = 1f)
+	{
+		playerHealth -= damage;
+
+		Debug.Log($"生命：{playerHealth}");
+
+		if (playerHealth <= 0)
+		{
+			GameOver();
+		}
+	}
+
+	#endregion
+
+	#region 状态控制
+
+	public void TogglePause()
+	{
+		if (State == GameState.Playing)
+		{
+			State = GameState.Paused;
+			Time.timeScale = 0f;
+		}
+		else if (State == GameState.Paused)
+		{
+			State = GameState.Playing;
+			Time.timeScale = 1f;
+		}
+	}
+
+	public void GameOver()
+	{
+		State = GameState.GameOver;
+
+		Debug.Log("游戏失败");
+
+		waveSpawner?.StopWave();
+		gameOverPanel?.SetActive(true);
+
+		Time.timeScale = 0f;
+	}
+
+	public void Victory()
+	{
+		State = GameState.Victory;
+
+		Debug.Log("游戏胜利");
+
+		waveSpawner?.StopWave();
+		victoryPanel?.SetActive(true);
+
+		Time.timeScale = 0f;
+	}
+
+	#endregion
+
+	#region 重开
+
+	public void RestartGame()
+	{
+		Time.timeScale = 1f;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	#endregion
 }

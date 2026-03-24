@@ -11,7 +11,7 @@ public class CannonTower : BaseTower
     public GameObject explosionPrefab;
     public Transform turret; // 炮管旋转
     
-    private Transform currentTarget;
+    private new Transform currentTarget;
 
     void Start()
     {
@@ -40,7 +40,7 @@ public class CannonTower : BaseTower
         }
     }
 
-    void FindTarget()
+	new void FindTarget()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, range);
 
@@ -64,7 +64,7 @@ public class CannonTower : BaseTower
         currentTarget = nearestEnemy?.transform;
     }
 
-    void Attack()
+	new void Attack()
     {
         if (currentTarget == null) return;
 

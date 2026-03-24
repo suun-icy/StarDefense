@@ -16,7 +16,7 @@ public class TerrainModifier : MonoBehaviour
     public float modifyStrength = 1f;
     public LayerMask groundLayer;
     
-    [Header("工具模式")]
+
     public enum ToolMode
     {
         Dig,      // 挖掘（降低）
@@ -24,8 +24,9 @@ public class TerrainModifier : MonoBehaviour
         Flatten,  // 平整
         Smooth    // 平滑
     }
-    
-    public ToolMode currentMode = ToolMode.Dig;
+
+	[Header("工具模式")]
+	public ToolMode currentMode = ToolMode.Dig;
     public float targetHeight = 0f; // 平整目标高度
     
     private void Awake()

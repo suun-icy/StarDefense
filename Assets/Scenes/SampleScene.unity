@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: f39a17d851e57174b8ae0bbbe732a5ac, type: 2}
 --- !u!1 &21859592
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,10 +290,16 @@ MonoBehaviour:
   basicTowerPrefab: {fileID: 7148337622762792315, guid: cac3e6875ff1e8c41a901c0b877a1302, type: 3}
   laserTowerPrefab: {fileID: 7148337622762792315, guid: c78c93cef39bc12478daa533899cd03e, type: 3}
   cannonTowerPrefab: {fileID: 7148337622762792315, guid: 9cf4468c66a8de041bbf1554a6a82c76, type: 3}
+  missileTowerPrefab: {fileID: 7148337622762792315, guid: f416213847cb9d342950f352bb8ada9c, type: 3}
   currentTowerType: 0
-  basicTowerCost: 50
-  laserTowerCost: 100
-  cannonTowerCost: 150
+  basicTowerMaterialCost: 50
+  basicTowerEnergyCost: 0
+  laserTowerMaterialCost: 80
+  laserTowerEnergyCost: 30
+  cannonTowerMaterialCost: 120
+  cannonTowerEnergyCost: 20
+  missileTowerMaterialCost: 100
+  missileTowerEnergyCost: 40
   previewObject: {fileID: 0}
   validMaterial: {fileID: 0}
   invalidMaterial: {fileID: 0}
@@ -698,6 +704,8 @@ MonoBehaviour:
   selectedTowerCost: {fileID: 0}
   waveText: {fileID: 0}
   healthText: {fileID: 0}
+  killCountText: {fileID: 0}
+  countdownText: {fileID: 0}
   warningPanel: {fileID: 0}
   warningText: {fileID: 0}
 --- !u!1 &904408499
@@ -1483,7 +1491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPanel: {fileID: 967458325}
   gameOverPanel: {fileID: 0}
-  waveSpawner: {fileID: 0}
+  victoryPanel: {fileID: 0}
+  waveSpawner: {fileID: 2001416050}
   maxWaves: 10
   playerHealth: 20
   currentWave: 0
@@ -1645,9 +1654,13 @@ MonoBehaviour:
   enemyPrefabs: []
   spawnPoint: {fileID: 1842319047}
   spawnPoints: []
-  enemiesPerWave: 5
+  baseEnemiesPerWave: 5
   spawnInterval: 2
   waveDelay: 5
+  preparationTime: 10
+  hpMultiplier: 1.2
+  speedMultiplier: 1.05
+  maxWaves: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
