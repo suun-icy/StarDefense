@@ -1,8 +1,50 @@
+```
+# Unity-specific ignores
 Library/
 Temp/
+Obj/
+Build/
+Builds/
+*.unityproj
 *.sln
 *.csproj
-*.sln
+*.user
 *.userprefs
-*.unityproj
-*.DS_Store
+*.pidb
+*.booproj
+*.svd
+.TestResults/
+[link.xml](link.xml)
+*.unity-test-report
+
+# Compiled and build artifacts
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.exe.mdb
+
+# Dependencies
+Packages/
+node_modules/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+```
