@@ -88,9 +88,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 敌人到达终点
     /// </summary>
-    public void OnEnemyReachEnd()
+    public void OnEnemyReachEnd(float damage = 1f)
     {
-        playerHealth--;
+        playerHealth -= damage;
         Debug.Log($"玩家剩余生命：{playerHealth}");
         
         if (playerHealth <= 0)

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// 敌人波次生成器（支持多波次、不同难度）
+/// 敌人波次生成器（支持多波次、不同难度、倒计时）
 /// </summary>
 public class WaveSpawner : MonoBehaviour
 {
@@ -17,14 +17,23 @@ public class WaveSpawner : MonoBehaviour
     public Transform[] spawnPoints; // 多个出生点
     
     [Header("波次设置")]
-    public int enemiesPerWave = 5;
+    public int baseEnemiesPerWave = 5;
     public float spawnInterval = 2f;
     public float waveDelay = 5f; // 波次间隔
+    public float preparationTime = 10f; // 准备时间（倒计时）
+    
+    [Header("难度曲线")]
+    public float hpMultiplier = 1.2f; // 每波 HP 增长系数
+    public float speedMultiplier = 1.05f; // 每波速度增长系数
+    public int maxWaves = 10;
     
     private int currentWave = 0;
     private int enemiesSpawned = 0;
+    private int enemiesToSpawn = 0;
     private bool isSpawning = false;
+    private bool isPreparation = false;
     private Coroutine spawnCoroutine;
+    private float preparationTimer = 0f;
 
     private void Awake()
     {
@@ -43,10 +52,10 @@ public class WaveSpawner : MonoBehaviour
     /// </summary>
     public void StartWave()
     {
-        if (!isSpawning)
+        if (!isSpawning && !isPreparation)
         {
             currentWave = 0;
-            StartNextWave();
+            StartPreparation();
         }
     }
 
@@ -56,12 +65,42 @@ public class WaveSpawner : MonoBehaviour
     public void StopWave()
     {
         isSpawning = false;
+        isPreparation = false;
         if (spawnCoroutine != null)
         {
             StopCoroutine(spawnCoroutine);
             spawnCoroutine = null;
         }
         CancelInvoke(nameof(SpawnEnemy));
+    }
+
+    /// <summary>
+    /// 开始准备阶段（倒计时）
+    /// </summary>
+    public void StartPreparation()
+    {
+        isPreparation = true;
+        preparationTimer = preparationTime;
+        
+        Debug.Log($"准备阶段开始！{preparationTime}秒后开始第 1 波");
+        UIManager.Instance?.StartCountdown(preparationTime);
+        
+        StartCoroutine(PreparationCountdown());
+    }
+
+    /// <summary>
+    /// 准备阶段倒计时协程
+    /// </summary>
+    private IEnumerator PreparationCountdown()
+    {
+        while (preparationTimer > 0)
+        {
+            preparationTimer -= Time.deltaTime;
+            yield return null;
+        }
+        
+        isPreparation = false;
+        StartNextWave();
     }
 
     /// <summary>
@@ -73,13 +112,14 @@ public class WaveSpawner : MonoBehaviour
         enemiesSpawned = 0;
         isSpawning = true;
         
-        Debug.Log($"第 {currentWave} 波开始！");
-        
-        // 增加难度
-        int enemyCount = enemiesPerWave + currentWave * 2;
+        // 计算本波敌人数量和属性
+        enemiesToSpawn = baseEnemiesPerWave + currentWave * 2;
         float interval = Mathf.Max(0.5f, spawnInterval - currentWave * 0.1f);
         
-        spawnCoroutine = StartCoroutine(SpawnWave(enemyCount, interval));
+        Debug.Log($"第 {currentWave} 波开始！敌人数量：{enemiesToSpawn}");
+        UIManager.Instance?.StartCountdown(0); // 清除倒计时
+        
+        spawnCoroutine = StartCoroutine(SpawnWave(enemiesToSpawn, interval));
     }
 
     /// <summary>
@@ -98,13 +138,38 @@ public class WaveSpawner : MonoBehaviour
         }
         
         // 等待所有敌人被消灭后再开始下一波
+        yield return new WaitUntil(() => GetAllEnemies().Length == 0);
+        
         yield return new WaitForSeconds(waveDelay);
         
         if (isSpawning)
         {
-            GameManager.Instance?.OnWaveComplete();
-            StartNextWave();
+            if (currentWave >= maxWaves)
+            {
+                GameManager.Instance?.Victory();
+            }
+            else
+            {
+                GameManager.Instance?.OnWaveComplete();
+                
+                // 开始准备下一阶段
+                if (currentWave < maxWaves)
+                {
+                    isPreparation = true;
+                    preparationTimer = preparationTime;
+                    UIManager.Instance?.StartCountdown(preparationTime);
+                    StartCoroutine(PreparationCountdown());
+                }
+            }
         }
+    }
+
+    /// <summary>
+    /// 获取所有存活的敌人
+    /// </summary>
+    BaseEnemy[] GetAllEnemies()
+    {
+        return FindObjectsOfType<BaseEnemy>();
     }
 
     /// <summary>
@@ -126,7 +191,38 @@ public class WaveSpawner : MonoBehaviour
         }
 
         GameObject prefabToSpawn = GetEnemyPrefab();
-        Instantiate(prefabToSpawn, spawnPos.position, Quaternion.identity);
+        GameObject enemyObj = Instantiate(prefabToSpawn, spawnPos.position, Quaternion.identity);
+        
+        // 应用波次难度加成
+        ApplyWaveBonus(enemyObj.GetComponent<BaseEnemy>());
+    }
+
+    /// <summary>
+    /// 应用波次难度加成
+    /// </summary>
+    void ApplyWaveBonus(BaseEnemy enemy)
+    {
+        if (enemy == null) return;
+        
+        // 增加 HP
+        enemy.maxHp *= Mathf.Pow(hpMultiplier, currentWave - 1);
+        enemy.hp = enemy.maxHp;
+        
+        // 增加速度
+        enemy.speed *= Mathf.Pow(speedMultiplier, currentWave - 1);
+        
+        // 后期波次有概率出现特殊敌人
+        if (currentWave >= 3 && Random.value < 0.2f)
+        {
+            enemy.prioritizeEnergy = true;
+            Debug.Log("生成了优先攻击能源的敌人！");
+        }
+        
+        if (currentWave >= 5 && Random.value < 0.15f)
+        {
+            enemy.canDestroyTerrain = true;
+            Debug.Log("生成了可以破坏地形的敌人！");
+        }
     }
 
     /// <summary>
@@ -153,5 +249,17 @@ public class WaveSpawner : MonoBehaviour
             return enemyPrefabs[index];
         }
         return enemyPrefab;
+    }
+    
+    /// <summary>
+    /// 手动触发测试波次（用于调试）
+    /// </summary>
+    public void TriggerTestWave()
+    {
+        if (!isSpawning && !isPreparation)
+        {
+            Debug.Log("测试波次触发！");
+            StartNextWave();
+        }
     }
 }
