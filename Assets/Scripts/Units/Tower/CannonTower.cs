@@ -93,7 +93,7 @@ public class CannonTower : BaseTower
         else
         {
             // 简单可视化效果
-            Debug.DrawLine(position, position + Vector3.up * 2f, Color.orange, 0.5f);
+            Debug.DrawLine(position, position + Vector3.up * 2f, Color.yellow, 0.5f);
         }
     }
 

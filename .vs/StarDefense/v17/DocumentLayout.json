@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "F:\\Unity\\project\\StarDefense\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\core\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\core\\buildmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\buildmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\core\\resourcemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\resourcemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\baseenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\baseenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|f:\\unity\\project\\stardefense\\assets\\scripts\\core\\buildpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\core\\buildpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\buildpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\core\\buildmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\buildmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|f:\\unity\\project\\stardefense\\assets\\scripts\\units\\tower\\cannontower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\units\\tower\\cannontower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|f:\\unity\\project\\stardefense\\assets\\scripts\\core\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\baseenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\baseenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CC59BFD-4700-42B6-54A5-597465E7500F}|Assembly-CSharp.csproj|F:\\Unity\\project\\StarDefense\\assets\\scripts\\core\\towertype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,11 +62,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
+              "Title": "CannonTower.cs",
+              "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Units\\Tower\\CannonTower.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Units\\Tower\\CannonTower.cs",
+              "ToolTip": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Units\\Tower\\CannonTower.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Units\\Tower\\CannonTower.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAA1wF8AAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-24T09:04:41.959Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "TowerType.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\TowerType.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\TowerType.cs",
@@ -74,32 +91,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "BuildPreview.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\BuildPreview.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\BuildPreview.cs",
               "ToolTip": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\BuildPreview.cs",
               "RelativeToolTip": "Assets\\Scripts\\Core\\BuildPreview.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAEBRwHAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAG0AAAByAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-22T05:10:09.534Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "BuildManager.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\BuildManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\BuildManager.cs",
               "ToolTip": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\BuildManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Core\\BuildManager.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAYwEkAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAALEAAAAAAAAAAAA0wMQAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-22T03:55:57.629Z"
+              "WhenOpened": "2026-03-22T03:55:57.629Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "BaseTower.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Units\\Tower\\BaseTower.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Units\\Tower\\BaseTower.cs",
@@ -111,7 +129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "TestStart.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Test\\TestStart.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Test\\TestStart.cs",
@@ -123,7 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "BaseEnemy.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\BaseEnemy.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\BaseEnemy.cs",
@@ -131,12 +149,11 @@
               "RelativeToolTip": "Assets\\Scripts\\BaseEnemy.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAAwCYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-21T14:58:10.741Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-21T14:58:10.741Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "WaveSpawner.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\WaveSpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\WaveSpawner.cs",
@@ -148,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "UIManager.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\UIManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\UIManager.cs",
@@ -166,27 +183,27 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\ResourceManager.cs",
               "ToolTip": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\ResourceManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Core\\ResourceManager.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAA2wB0AAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAAA1wAsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-21T14:54:40.235Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "GameManager.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\GameManager.cs",
               "ToolTip": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Core\\GameManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Core\\GameManager.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAA0wCwAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAABFwCwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-21T14:54:25.518Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "AttackViewCamera.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Camera\\AttackViewCamera.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Camera\\AttackViewCamera.cs",
@@ -198,7 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "RTSCameraController.cs",
               "DocumentMoniker": "F:\\Unity\\project\\StarDefense\\Assets\\Scripts\\Camera\\RTSCameraController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Camera\\RTSCameraController.cs",
