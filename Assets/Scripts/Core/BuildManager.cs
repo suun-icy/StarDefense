@@ -11,13 +11,22 @@ public class BuildManager : MonoBehaviour
     public GameObject basicTowerPrefab;
     public GameObject laserTowerPrefab;
     public GameObject cannonTowerPrefab;
+    public GameObject missileTowerPrefab; // 新增：导弹塔
 
     public TowerType currentTowerType = TowerType.Basic;
     
-    [Header("建造成本")]
-    public int basicTowerCost = 50;
-    public int laserTowerCost = 100;
-    public int cannonTowerCost = 150;
+    [Header("建造成本 (物资/能源)")]
+    public int basicTowerMaterialCost = 50;
+    public int basicTowerEnergyCost = 0;
+    
+    public int laserTowerMaterialCost = 80;
+    public int laserTowerEnergyCost = 30;
+    
+    public int cannonTowerMaterialCost = 120;
+    public int cannonTowerEnergyCost = 20;
+    
+    public int missileTowerMaterialCost = 100;
+    public int missileTowerEnergyCost = 40; // 新增：导弹塔成本
 
     [Header("预览")]
     public GameObject previewObject;
@@ -117,6 +126,10 @@ public class BuildManager : MonoBehaviour
         currentTowerType = (TowerType)type;
         isBuildingMode = true;
         currentPreview.SetActive(true);
+        
+        // 更新 UI 显示
+        UIManager.Instance?.UpdateSelectedTowerInfo(currentTowerType, GetCurrentTowerMaterialCost());
+        
         Debug.Log("选择塔：" + currentTowerType);
     }
 
@@ -133,26 +146,50 @@ public class BuildManager : MonoBehaviour
                 return laserTowerPrefab;
             case TowerType.Cannon:
                 return cannonTowerPrefab;
+            case TowerType.Missile:
+                return missileTowerPrefab;
             default:
                 return basicTowerPrefab;
         }
     }
 
     /// <summary>
-    /// 获取当前塔的成本
+    /// 获取当前塔的物资成本
     /// </summary>
-    public int GetCurrentTowerCost()
+    public int GetCurrentTowerMaterialCost()
     {
         switch (currentTowerType)
         {
             case TowerType.Basic:
-                return basicTowerCost;
+                return basicTowerMaterialCost;
             case TowerType.Laser:
-                return laserTowerCost;
+                return laserTowerMaterialCost;
             case TowerType.Cannon:
-                return cannonTowerCost;
+                return cannonTowerMaterialCost;
+            case TowerType.Missile:
+                return missileTowerMaterialCost;
             default:
-                return basicTowerCost;
+                return basicTowerMaterialCost;
+        }
+    }
+    
+    /// <summary>
+    /// 获取当前塔的能源成本
+    /// </summary>
+    public int GetCurrentTowerEnergyCost()
+    {
+        switch (currentTowerType)
+        {
+            case TowerType.Basic:
+                return basicTowerEnergyCost;
+            case TowerType.Laser:
+                return laserTowerEnergyCost;
+            case TowerType.Cannon:
+                return cannonTowerEnergyCost;
+            case TowerType.Missile:
+                return missileTowerEnergyCost;
+            default:
+                return basicTowerEnergyCost;
         }
     }
 
@@ -183,8 +220,11 @@ public class BuildManager : MonoBehaviour
         canBuildHere = false;
 
         // 检查资源
-        int cost = GetCurrentTowerCost();
-        if (ResourceManager.Instance.material < cost)
+        int materialCost = GetCurrentTowerMaterialCost();
+        int energyCost = GetCurrentTowerEnergyCost();
+        
+        if (ResourceManager.Instance.material < materialCost || 
+            ResourceManager.Instance.energy < energyCost)
         {
             SetPreviewColor(Color.red);
             return;
@@ -235,17 +275,26 @@ public class BuildManager : MonoBehaviour
     /// </summary>
     void TryBuild(Vector3 pos)
     {
-        int cost = GetCurrentTowerCost();
+        int materialCost = GetCurrentTowerMaterialCost();
+        int energyCost = GetCurrentTowerEnergyCost();
         
-        if (!ResourceManager.Instance.UseMaterial(cost))
+        // 使用双资源系统
+        if (!ResourceManager.Instance.UseMaterial(materialCost))
         {
+            return;
+        }
+        
+        if (energyCost > 0 && !ResourceManager.Instance.UseEnergy(energyCost))
+        {
+            // 退还物资
+            ResourceManager.Instance.AddMaterial(materialCost);
             return;
         }
 
         GameObject tower = Instantiate(GetCurrentTowerPrefab(), pos, Quaternion.identity);
         tower.tag = "Tower";
         
-        Debug.Log($"建造 {currentTowerType} 塔，花费 {cost} 物资");
+        Debug.Log($"建造 {currentTowerType} 塔，花费 {materialCost} 物资 + {energyCost} 能源");
     }
 
     /// <summary>
@@ -264,6 +313,10 @@ public class BuildManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SelectTower((int)TowerType.Cannon);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8)) // 新增：导弹塔快捷键
+        {
+            SelectTower((int)TowerType.Missile);
         }
     }
 

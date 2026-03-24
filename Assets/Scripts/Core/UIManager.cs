@@ -26,9 +26,16 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI healthText;
     
+    [Header("统计信息")]
+    public TextMeshProUGUI killCountText; // 击杀数量
+    public TextMeshProUGUI countdownText; // 倒计时
+    
     [Header("提示信息")]
     public GameObject warningPanel;
     public TextMeshProUGUI warningText;
+
+    private float waveCountdown = 0f;
+    private bool isCountingDown = false;
 
     private void Awake()
     {
@@ -45,6 +52,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         UpdateResourceUI();
+        UpdateKillCount(0);
         
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
@@ -58,6 +66,7 @@ public class UIManager : MonoBehaviour
     {
         UpdateResourceUI();
         UpdateGameInfo();
+        UpdateCountdown();
         
         // P 键暂停
         if (Input.GetKeyDown(KeyCode.P))
@@ -116,6 +125,51 @@ public class UIManager : MonoBehaviour
                 {
                     healthText.color = Color.white;
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 更新击杀计数
+    /// </summary>
+    public void UpdateKillCount(int kills)
+    {
+        if (killCountText != null)
+        {
+            killCountText.text = $"击杀：{kills}";
+        }
+    }
+
+    /// <summary>
+    /// 开始倒计时
+    /// </summary>
+    public void StartCountdown(float seconds)
+    {
+        waveCountdown = seconds;
+        isCountingDown = true;
+    }
+
+    /// <summary>
+    /// 更新倒计时显示
+    /// </summary>
+    void UpdateCountdown()
+    {
+        if (isCountingDown && countdownText != null)
+        {
+            if (waveCountdown > 0)
+            {
+                waveCountdown -= Time.deltaTime;
+                int minutes = Mathf.FloorToInt(waveCountdown / 60);
+                int seconds = Mathf.FloorToInt(waveCountdown % 60);
+                countdownText.text = $"下波：{minutes:D2}:{seconds:D2}";
+                countdownText.color = Color.white;
+            }
+            else
+            {
+                waveCountdown = 0;
+                isCountingDown = false;
+                countdownText.text = "波次进行中";
+                countdownText.color = Color.green;
             }
         }
     }
