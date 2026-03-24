@@ -233,6 +233,12 @@ public class WaveSpawner : MonoBehaviour
     /// </summary>
     Transform GetSpawnPoint()
     {
+        // 优先使用 GameManager 中设置的出生点
+        if (GameManager.Instance != null && GameManager.Instance.spawnPoint != null)
+        {
+            return GameManager.Instance.spawnPoint;
+        }
+        
         if (spawnPoints != null && spawnPoints.Length > 0)
         {
             return spawnPoints[Random.Range(0, spawnPoints.Length)];

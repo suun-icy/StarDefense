@@ -192,6 +192,30 @@ public class BuildManager : MonoBehaviour
                 return basicTowerEnergyCost;
         }
     }
+    
+    /// <summary>
+    /// 获取当前塔类型名称
+    /// </summary>
+    public string GetCurrentTowerType()
+    {
+        return currentTowerType.ToString();
+    }
+    
+    /// <summary>
+    /// 获取当前塔的成本（物资，能源）
+    /// </summary>
+    public Vector2 GetCurrentTowerCost()
+    {
+        return new Vector2(GetCurrentTowerMaterialCost(), GetCurrentTowerEnergyCost());
+    }
+    
+    /// <summary>
+    /// 检查是否在建造模式
+    /// </summary>
+    public bool IsBuildingMode()
+    {
+        return isBuildingMode;
+    }
 
     /// <summary>
     /// 更新预览位置

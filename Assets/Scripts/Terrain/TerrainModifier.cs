@@ -211,4 +211,21 @@ public class TerrainModifier : MonoBehaviour
     {
         targetHeight = height;
     }
+    
+    /// <summary>
+    /// 获取当前工具模式
+    /// </summary>
+    public ToolMode GetCurrentToolMode()
+    {
+        return currentMode;
+    }
+    
+    /// <summary>
+    /// 检查是否激活（用于 UI 显示）
+    /// </summary>
+    public bool IsActive()
+    {
+        // 简单判断：如果当前模式不是默认值，或者有其他条件可以扩展
+        return true;
+    }
 }
