@@ -10,7 +10,7 @@ public class LaserTower : BaseTower
     public LineRenderer laserLine;
     public Color laserColor = Color.red;
     
-    private Transform currentTarget;
+    private new Transform currentTarget;
     private bool isFiring = false;
 
     void Start()
@@ -55,7 +55,7 @@ public class LaserTower : BaseTower
         }
     }
 
-    void Attack()
+	new void Attack()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, range);
 

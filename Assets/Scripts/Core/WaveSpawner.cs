@@ -189,8 +189,11 @@ public class WaveSpawner : MonoBehaviour
             Debug.LogError("没有设置出生点！");
             return;
         }
+		Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        GameObject prefabToSpawn = GetEnemyPrefab();
+		Instantiate(enemyPrefab, point.position, Quaternion.identity);
+
+		GameObject prefabToSpawn = GetEnemyPrefab();
         GameObject enemyObj = Instantiate(prefabToSpawn, spawnPos.position, Quaternion.identity);
         
         // 应用波次难度加成

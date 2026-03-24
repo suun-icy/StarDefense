@@ -9,8 +9,8 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager Instance;
 
     [Header("资源")]
-    public float energy = 100;
-    public float material = 200;
+    public float energy = 400;
+    public float material = 800;
     
     [Header("资源上限")]
     public float maxEnergy = 500;
