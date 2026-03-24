@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     [Header("游戏设置")]
     public int maxWaves = 10;
     public float playerHealth = 20;
+    public float preparationTime = 10f; // 准备时间
+    
+    [Header("场景设置")]
+    public Transform spawnPoint; // 敌人生成点
+    public Transform endTarget;  // 敌人目标点（终点）
+    public Transform energyCore; // 能源核心（优先攻击目标）
     
     public enum GameState
     {
@@ -29,6 +35,10 @@ public class GameManager : MonoBehaviour
     public GameState State { get; private set; }
     public int currentWave = 0;
     public float CurrentPlayerHealth => playerHealth;
+    public int TotalKills => BaseEnemy.totalKills;
+    
+    private bool isCountingDown = false;
+    private float countdownTimer = 0f;
 
     private void Awake()
     {
@@ -47,19 +57,84 @@ public class GameManager : MonoBehaviour
         State = GameState.Preparing;
         Time.timeScale = 1f;
         
+        // 自动查找场景中的关键点（如果未手动赋值）
+        if (spawnPoint == null)
+        {
+            GameObject sp = GameObject.Find("SpawnPoint");
+            if (sp != null) spawnPoint = sp.transform;
+        }
+        
+        if (endTarget == null)
+        {
+            GameObject et = GameObject.Find("EndTarget");
+            if (et != null) endTarget = et.transform;
+        }
+        
+        if (energyCore == null)
+        {
+            GameObject ec = GameObject.Find("EnergyCore");
+            if (ec != null) energyCore = ec.transform;
+        }
+        
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
+        }
+        
+        // 显示开始界面
+        if (startPanel != null)
+        {
+            startPanel.SetActive(true);
         }
     }
 
     void Update()
     {
+        // 更新倒计时
+        if (isCountingDown && State == GameState.Preparing)
+        {
+            countdownTimer -= Time.deltaTime;
+            if (countdownTimer <= 0)
+            {
+                isCountingDown = false;
+                StartGame();
+            }
+            else
+            {
+                UIManager.Instance?.StartCountdown(countdownTimer);
+            }
+        }
+        
         // 按 R 键重新开始
         if (State == GameState.GameOver && Input.GetKeyDown(KeyCode.R))
         {
             RestartGame();
         }
+        
+        // 按 T 键触发测试波次（调试用）
+        if (Input.GetKeyDown(KeyCode.T) && State == GameState.Playing)
+        {
+            Debug.Log("测试波次触发！");
+            waveSpawner?.TriggerTestWave();
+        }
+    }
+    
+    /// <summary>
+    /// 开始准备阶段（倒计时后开始游戏）
+    /// </summary>
+    public void StartPreparing()
+    {
+        if (startPanel != null)
+        {
+            startPanel.SetActive(false);
+        }
+        
+        State = GameState.Preparing;
+        isCountingDown = true;
+        countdownTimer = preparationTime;
+        
+        Debug.Log($"准备阶段开始！{preparationTime}秒后开始第 1 波");
+        UIManager.Instance?.StartCountdown(preparationTime);
     }
 
     /// <summary>
@@ -71,18 +146,32 @@ public class GameManager : MonoBehaviour
         State = GameState.Playing;
         currentWave = 0;
         playerHealth = 20;
-
-        // 隐藏开始 UI
-        if (startPanel != null)
-        {
-            startPanel.SetActive(false);
-        }
+        BaseEnemy.totalKills = 0; // 重置击杀数
+        
+        // 更新击杀 UI
+        UIManager.Instance?.UpdateKillCount(0);
 
         // 开始刷怪
         if (waveSpawner != null)
         {
             waveSpawner.StartWave();
         }
+    }
+    
+    /// <summary>
+    /// 是否正在倒计时
+    /// </summary>
+    public bool IsCountingDown()
+    {
+        return isCountingDown;
+    }
+    
+    /// <summary>
+    /// 获取倒计时剩余时间
+    /// </summary>
+    public float GetCountdown()
+    {
+        return countdownTimer;
     }
 
     /// <summary>

@@ -119,6 +119,18 @@ public class BaseEnemy : MonoBehaviour
     /// </summary>
     void FollowPath()
     {
+        // 优先使用 GameManager 中设置的终点目标
+        if (GameManager.Instance != null && GameManager.Instance.endTarget != null)
+        {
+            target = GameManager.Instance.endTarget;
+        }
+        
+        // 设置能源核心目标（用于优先攻击）
+        if (GameManager.Instance != null && GameManager.Instance.energyCore != null)
+        {
+            energyTarget = GameManager.Instance.energyCore;
+        }
+        
         if (currentWaypointIndex >= Waypoint.waypoints.Length)
         {
             ReachEnd();
